@@ -1,0 +1,91 @@
+
+*{
+  box-sizing:border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
+  overflow-x: hidden;
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #ffdde1);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* Valentimes styles */
+:root{
+  --bg1:#ff9a9e;
+  --bg2:#fad0c4;
+  --card:#ffffffee;
+  --accent:#ff6b81;
+  --muted:#6b6b6b;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2rem;
+  overflow-x:hidden;
+}
+.card{
+  width:min(720px,100%);
+  background:var(--card);
+  border-radius:18px;
+  padding:28px 32px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.12);
+  text-align:center;
+  position:relative;
+}
+h1{margin:0 0 8px;font-size:2rem}
+p{color:var(--muted);line-height:1.4;margin:0 0 18px}
+.timer-box{background:rgba(255,255,255,0.6);padding:8px 12px;border-radius:10px;margin:10px auto;display:inline-block}
+.timer{font-weight:600;color:var(--accent);min-width:220px}
+h2{margin:18px 0 12px}
+.button-container{display:flex;gap:12px;justify-content:center;margin-bottom:14px}
+button{font-size:1rem;padding:10px 18px;border-radius:10px;border:0;cursor:pointer}
+.yes{background:var(--accent);color:white}
+.no{background:#fff;border:2px solid #ffb3bf;color:#d04a61}
+.no.fade-out{opacity:0.25;transition:opacity .6s}
+#response{display:none;margin-top:12px;font-weight:600;color:#b3003b}
+
+/* hearts created by JS */
+.heart, .bg-heart{
+  position:fixed;
+  pointer-events:none;
+  font-size:22px;
+  will-change:transform,opacity;
+  animation:floatUp 3s linear forwards;
+  z-index:5;
+}
+.bg-heart{font-size:18px;opacity:0.85;animation:floatSlow 8s linear forwards}
+@keyframes floatUp{from{transform:translateY(0) scale(1)}to{transform:translateY(-220px) scale(.8);opacity:0}}
+@keyframes floatSlow{from{transform:translateY(0) scale(1)}to{transform:translateY(-120px) scale(.9);opacity:0}}
+
+/* responsive tweaks */
+@media (max-width:420px){
+  .card{padding:18px}
+  h1{font-size:1.4rem}
+  .timer{min-width:160px}
+  .heart{font-size:18px}
+}
+
+/* make embedded player less obtrusive when present */
+#ifplayer, iframe#player{position:fixed;right:12px;bottom:12px;width:320px;height:180px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.15);z-index:2}
+
+/* small utilities */
+.hidden{display:none}
