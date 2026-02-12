@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>You Will Be My Valentine 💖</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
+  overflow-x: hidden;
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #ffdde1);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.card {
+  width:100%;
+  max-width:500px;
+  padding:30px 20px;
+  border-radius: 25px;
+  text-align: center;
+  backdrop-filter: blur(18px);
+  background: rgba(255,255,255,0.85);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(30px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+h1 {
+  color:#ff4d6d;
+  font-size: clamp(22px, 5vw, 28px);
+}
+
+p {
+  color:#444;
+  line-height:1.6;
+  font-size: clamp(14px, 3.5vw, 16px);
+}
+
+.timer-box {
+  margin-top:15px;
+  padding:10px;
+  border-radius:12px;
+  background:rgba(255,77,109,0.1);
+  font-size:14px;
+}
+
+.timer {
+  font-weight:bold;
+  color:#ff4d6d;
+  font-size:15px;
+}
+
+.button-container {
+  margin-top:25px;
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+button {
+  padding:12px 25px;
+  border:none;
+  border-radius:25px;
+  font-size:15px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.yes {
+  background:linear-gradient(45deg,#ff4d6d,#ff758f);
+  color:white;
+}
+
+.yes:active {
+  transform:scale(1.05);
+}
+
+.no {
+  background:#adb5bd;
+}
+
+.no.fade-out {
+  opacity:0;
+  transform:scale(0.3);
+  pointer-events:none;
+  transition:0.5s;
+}
+
+#response {
+  margin-top:20px;
+  font-size:18px;
+  color:#ff4d6d;
+  font-weight:bold;
+  display:none;
+}
+
+.heart {
+  position:fixed;
+  bottom:-20px;
+  font-size:22px;
+  animation:floatUp 3s ease forwards;
+}
+
+@keyframes floatUp {
+  0% { opacity:1; transform:translateY(0); }
+  100% { opacity:0; transform:translateY(-300px) scale(1.5); }
+}
+
+.bg-heart {
+  position:fixed;
+  bottom:-50px;
+  font-size:18px;
+  opacity:0.6;
+  animation:floatBg 10s linear infinite;
+}
+
+@keyframes floatBg {
+  0% { transform:translateY(0); opacity:0.6; }
+  100% { transform:translateY(-110vh); opacity:0; }
+}
+
+#player {
+  position:fixed;
+  width:0;
+  height:0;
+  opacity:0;
+  pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <h1>Hello Kubaby 💕</h1>
+
+  <p>
+    Moon and back 🌙<br>
+    Always and forever 💞<br>
+    You are being told that you are my Valentine 😌
+  </p>
+
+  <div class="timer-box">
+    💬 We've been talking for:
+    <div class="timer" id="countUp"></div>
+  </div>
+
+  <div class="timer-box">
+    ♾ I hope we keep talking for:
+    <div class="timer" id="countDown"></div>
+  </div>
+
+  <h2>Will you be my Valentine? 💌</h2>
+
+  <div class="button-container">
+    <button class="yes" id="yesBtn">Yes 💖</button>
+    <button class="no" id="noBtn">No 💔</button>
+  </div>
+
+  <div id="response">
+    Yay!! I knew it 🥰🌹<br>
+    Can’t wait to be your Valentine ❤️
+  </div>
+</div>
+
+<!-- Embedded YouTube Music -->
+<iframe
+  id="player"
+  src="https://www.youtube.com/embed/813qi28339w?autoplay=0&loop=1&playlist=813qi28339w"
+  allow="autoplay">
+</iframe>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const response = document.getElementById("response");
+
+const countUpEl = document.getElementById("countUp");
+const countDownEl = document.getElementById("countDown");
+
+const startDate = new Date("2023-10-26T17:53:00");
+const futureDate = new Date();
+futureDate.setFullYear(futureDate.getFullYear() + 100);
+
+function updateTimers() {
+  const now = new Date();
+  const diffUp = now - startDate;
+  const diffDown = futureDate - now;
+
+  function format(ms) {
+    const s = Math.floor(ms/1000);
+    const m = Math.floor(s/60);
+    const h = Math.floor(m/60);
+    const d = Math.floor(h/24);
+    const y = Math.floor(d/365);
+    return `${y}y ${d%365}d ${h%24}h ${m%60}m ${s%60}s`;
+  }
+
+  countUpEl.textContent = format(diffUp);
+  countDownEl.textContent = format(diffDown);
+}
+setInterval(updateTimers, 1000);
+updateTimers();
+
+/* Mobile autoplay fix: start music on first tap */
+document.body.addEventListener("click", function() {
+  const iframe = document.getElementById("player");
+  iframe.src += "&autoplay=1";
+}, { once: true });
+
+yesBtn.addEventListener("click", ()=>{
+  response.style.display="block";
+  yesBtn.disabled=true;
+  noBtn.classList.add("fade-out");
+
+  for(let i=0; i<40; i++) createHeart();
+});
+
+noBtn.addEventListener("click", moveNoButton);
+noBtn.addEventListener("touchstart", moveNoButton);
+
+function moveNoButton() {
+  noBtn.style.position="fixed";
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+  noBtn.style.left = Math.random()*maxX + "px";
+  noBtn.style.top  = Math.random()*maxY + "px";
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className="heart";
+  heart.textContent="💖";
+  heart.style.left = Math.random()*window.innerWidth + "px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(), 3000);
+}
+
+setInterval(()=>{
+  const heart = document.createElement("div");
+  heart.className="bg-heart";
+  heart.textContent="💗";
+  heart.style.left=Math.random()*window.innerWidth+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),10000);
+},1200);
+
+</script>
+
+</body>
+</html>
